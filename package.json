@@ -1,0 +1,52 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node build/server.js",
+    "predev": "npm run swagger",
+    "prebuild": "npm run swagger",
+    "build:start": "npm run build && npm run start",
+    "build": "tsoa spec-and-routes && tsc",
+    "dev": "concurrently \"nodemon -r tsconfig-paths/register\" \"nodemon -x tsoa spec-and-routes\"",
+    "swagger": "tsoa spec"
+  },
+  "nodemonConfig": {
+    "watch": [
+      "src"
+    ],
+    "ext": "ts",
+    "ignore": [
+      "src/public",
+      "src/routes"
+    ],
+    "exec": "ts-node -r tsconfig-paths/register ./src/server.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@mysten/sui": "^1.21.1",
+    "axios": "^1.7.9",
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "joi": "^17.13.3",
+    "morgan": "^1.10.0",
+    "mysql2": "^3.11.3",
+    "swagger-ui-express": "^5.0.1",
+    "tsoa": "^6.6.0",
+    "typeorm": "^0.3.20"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
+    "@types/morgan": "^1.9.9",
+    "@types/node": "^22.12.0",
+    "@types/swagger-ui-express": "^4.1.7",
+    "concurrently": "^9.1.2",
+    "nodemon": "^3.1.9",
+    "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0"
+  }
+}
