@@ -11,6 +11,7 @@ const envVarsSchema = Joi.object()
     MYSQL_ROOT_PASSWORD: Joi.string().required(),
     MYSQL_DATABASE: Joi.string().required(),
     APP_PORT: Joi.number().required(),
+    AGENT_API_URL: Joi.string().required(),
   })
   .unknown();
 
@@ -42,4 +43,8 @@ export const env = {
     user: envVars.MYSQL_USER,
   },
   port: envVars.APP_PORT,
+  agent: {
+    agentApiUrl: envVars.AGENT_API_URL,
+    agentId: envVars.AGENT_ID,
+  },
 };

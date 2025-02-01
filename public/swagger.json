@@ -87,6 +87,34 @@
 				"security": [],
 				"parameters": []
 			}
+		},
+		"/api/agent": {
+			"post": {
+				"operationId": "HandleMessage",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Agent"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {}
+						}
+					}
+				}
+			}
 		}
 	},
 	"servers": [
