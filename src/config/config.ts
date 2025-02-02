@@ -30,6 +30,7 @@ export const isProduction = () => {
 export const isDevelopment = () => {
   return envVars.NODE_ENV === "development";
 };
+
 export const isLocal = () => {
   return envVars.NODE_ENV === "local";
 };
