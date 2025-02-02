@@ -5,13 +5,10 @@ dotenv.config();
 
 const envVarsSchema = Joi.object()
   .keys({
-    NODE_ENV: Joi.string().valid("local", "development", "production").required(),
-    MYSQL_HOST: Joi.string().required(),
-    MYSQL_USER: Joi.string().required(),
-    MYSQL_ROOT_PASSWORD: Joi.string().required(),
-    MYSQL_DATABASE: Joi.string().required(),
+    NODE_ENV: Joi.string()
+      .valid("local", "development", "production")
+      .required(),
     APP_PORT: Joi.number().required(),
-    AGENT_API_URL: Joi.string().required(),
   })
   .unknown();
 
@@ -37,14 +34,7 @@ export const isLocal = () => {
 export const env = {
   nodeEnv: envVars.NODE_ENV,
   mysql: {
-    host: envVars.MYSQL_HOST,
-    password: envVars.MYSQL_ROOT_PASSWORD,
-    db: envVars.MYSQL_DATABASE,
-    user: envVars.MYSQL_USER,
+    url: envVars.MYSQL_URL,
   },
   port: envVars.APP_PORT,
-  agent: {
-    agentApiUrl: envVars.AGENT_API_URL,
-    agentId: envVars.AGENT_ID,
-  },
 };
