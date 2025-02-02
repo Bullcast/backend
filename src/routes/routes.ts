@@ -4,6 +4,8 @@
 import type { TsoaRoute } from '@tsoa/runtime';
 import {  fetchMiddlewares, ExpressTemplateService } from '@tsoa/runtime';
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+import { BuildTransactionController } from './../controllers/tx';
+// WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 import { HealthController } from './../controllers/health';
 import type { Request as ExRequest, Response as ExResponse, RequestHandler, Router } from 'express';
 
@@ -40,6 +42,104 @@ export function RegisterRoutes(app: Router) {
 
 
     
+        const argsBuildTransactionController_getTransferTransaction: Record<string, TsoaRoute.ParameterSchema> = {
+                from: {"in":"query","name":"from","required":true,"dataType":"string"},
+                to: {"in":"query","name":"to","required":true,"dataType":"string"},
+                amount: {"in":"query","name":"amount","required":true,"dataType":"double"},
+                type: {"in":"query","name":"type","dataType":"string"},
+        };
+        app.get('/api/build-transaction/transfer',
+            ...(fetchMiddlewares<RequestHandler>(BuildTransactionController)),
+            ...(fetchMiddlewares<RequestHandler>(BuildTransactionController.prototype.getTransferTransaction)),
+
+            async function BuildTransactionController_getTransferTransaction(request: ExRequest, response: ExResponse, next: any) {
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = templateService.getValidatedArgs({ args: argsBuildTransactionController_getTransferTransaction, request, response });
+
+                const controller = new BuildTransactionController();
+
+              await templateService.apiHandler({
+                methodName: 'getTransferTransaction',
+                controller,
+                response,
+                next,
+                validatedArgs,
+                successStatus: undefined,
+              });
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        const argsBuildTransactionController_getInvestTransaction: Record<string, TsoaRoute.ParameterSchema> = {
+                from: {"in":"query","name":"from","required":true,"dataType":"string"},
+                amount: {"in":"query","name":"amount","required":true,"dataType":"double"},
+        };
+        app.get('/api/build-transaction/invest',
+            ...(fetchMiddlewares<RequestHandler>(BuildTransactionController)),
+            ...(fetchMiddlewares<RequestHandler>(BuildTransactionController.prototype.getInvestTransaction)),
+
+            async function BuildTransactionController_getInvestTransaction(request: ExRequest, response: ExResponse, next: any) {
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = templateService.getValidatedArgs({ args: argsBuildTransactionController_getInvestTransaction, request, response });
+
+                const controller = new BuildTransactionController();
+
+              await templateService.apiHandler({
+                methodName: 'getInvestTransaction',
+                controller,
+                response,
+                next,
+                validatedArgs,
+                successStatus: undefined,
+              });
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        const argsBuildTransactionController_getSwapTransaction: Record<string, TsoaRoute.ParameterSchema> = {
+                from: {"in":"query","name":"from","required":true,"dataType":"string"},
+                coinInType: {"in":"query","name":"coinInType","required":true,"dataType":"string"},
+                coinOutType: {"in":"query","name":"coinOutType","required":true,"dataType":"string"},
+                amountIn: {"in":"query","name":"amountIn","required":true,"dataType":"double"},
+                slippage: {"in":"query","name":"slippage","dataType":"double"},
+        };
+        app.get('/api/build-transaction/swap',
+            ...(fetchMiddlewares<RequestHandler>(BuildTransactionController)),
+            ...(fetchMiddlewares<RequestHandler>(BuildTransactionController.prototype.getSwapTransaction)),
+
+            async function BuildTransactionController_getSwapTransaction(request: ExRequest, response: ExResponse, next: any) {
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = templateService.getValidatedArgs({ args: argsBuildTransactionController_getSwapTransaction, request, response });
+
+                const controller = new BuildTransactionController();
+
+              await templateService.apiHandler({
+                methodName: 'getSwapTransaction',
+                controller,
+                response,
+                next,
+                validatedArgs,
+                successStatus: undefined,
+              });
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
         const argsHealthController_getHealth: Record<string, TsoaRoute.ParameterSchema> = {
         };
         app.get('/api/health',
