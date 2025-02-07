@@ -12,8 +12,12 @@ export class PriceController extends Controller {
     @Query() token: string,
   ) {
     try {
-        const response = await axios.get(`https://www.binance.me/fapi/v1/markPriceKlines?symbol=${token}USDT&limit=240&interval=1h`);
+        const now = new Date().getTime() / 1000;
+        const from = now - 3600 * 240;
+        const api = `https://data.attlas.io/api/v1/chart/history?broker=ATTLAS_SPOT&symbol=${token}USDT&from=${from}&to=${now}&resolution=1h`;
+        const response = await axios.get(api);
         const marketData = response.data;
+        console.log(api, marketData.length);
         const marketPrice = [];
         for (const candle of marketData) {
             marketPrice.push([
