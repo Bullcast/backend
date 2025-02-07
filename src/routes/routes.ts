@@ -6,6 +6,8 @@ import {  fetchMiddlewares, ExpressTemplateService } from '@tsoa/runtime';
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 import { BuildTransactionController } from './../controllers/tx';
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+import { PriceController } from './../controllers/price';
+// WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 import { HealthController } from './../controllers/health';
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 import { AgentController } from './../controllers/agent';
@@ -131,6 +133,36 @@ export function RegisterRoutes(app: Router) {
 
               await templateService.apiHandler({
                 methodName: 'getSwapTransaction',
+                controller,
+                response,
+                next,
+                validatedArgs,
+                successStatus: undefined,
+              });
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        const argsPriceController_handleMessage: Record<string, TsoaRoute.ParameterSchema> = {
+                token: {"in":"query","name":"token","required":true,"dataType":"string"},
+        };
+        app.get('/api/price',
+            ...(fetchMiddlewares<RequestHandler>(PriceController)),
+            ...(fetchMiddlewares<RequestHandler>(PriceController.prototype.handleMessage)),
+
+            async function PriceController_handleMessage(request: ExRequest, response: ExResponse, next: any) {
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = templateService.getValidatedArgs({ args: argsPriceController_handleMessage, request, response });
+
+                const controller = new PriceController();
+
+              await templateService.apiHandler({
+                methodName: 'handleMessage',
                 controller,
                 response,
                 next,
