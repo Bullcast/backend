@@ -1,4 +1,4 @@
-import * as dotenv from "dotenv";
+import dotenv from "dotenv";
 import Joi from "joi";
 
 dotenv.config();
@@ -9,9 +9,11 @@ const envVarsSchema = Joi.object()
       .valid("local", "development", "production")
       .required(),
     APP_PORT: Joi.number().required(),
+    AGENT_API_URL: Joi.string().required(),
     SUI_PACKAGE: Joi.string().required(),
     SUI_CONFIG_OBJECT: Joi.string().required(),
     MYSQL_URL: Joi.string().required(),
+    PREDICT_API_URL: Joi.string().required(),
   })
   .unknown();
 
@@ -40,8 +42,12 @@ export const env = {
     url: envVars.MYSQL_URL,
   },
   port: envVars.APP_PORT,
+  agent: {
+    agentApiUrl: envVars.AGENT_API_URL,
+  },
   sui: {
     package: envVars.SUI_PACKAGE,
     config_object: envVars.SUI_CONFIG_OBJECT,
-  }
+  },
+  predictApiUrl: envVars.PREDICT_API_URL,
 };
