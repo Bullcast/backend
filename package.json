@@ -27,11 +27,13 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@ai-sdk/openai": "^1.1.9",
     "@mysten/sui": "^1.21.1",
     "@mysten/sui.js": "^0.54.1",
     "@suilend/sdk": "^1.1.38",
     "@tsoa/runtime": "^6.6.0",
     "aftermath-ts-sdk": "^1.2.49",
+    "ai": "^4.1.25",
     "axios": "^1.7.9",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",

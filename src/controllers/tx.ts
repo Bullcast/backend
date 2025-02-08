@@ -109,6 +109,7 @@ export const getSwapTransaction = async (from: string, coinInType: string, coinO
     slippage: slippage ?? 0.1,
   });
   txb = res.tx;
+  txb.transferObjects([res.coinOutId!], from);
   txb.setSenderIfNotSet(from);
   txb.setGasBudget(100000000);
   const builtTx = await txb.build({

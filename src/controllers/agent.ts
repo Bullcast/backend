@@ -12,7 +12,6 @@ export class AgentController extends Controller {
     @Body() body: any,
   ) {
     try {
-      console.log(body);
       const response = await axios.post(env.agent.agentApiUrl, body);
       if (response.status === 200) {
         const res = response.data.map((d: any) => {
@@ -22,11 +21,11 @@ export class AgentController extends Controller {
         });
 
         const firstAction = response.data[0].action;
-        console.log(firstAction);
         if (firstAction === 'DEFI_AUTOMATION') {
           let txb = new Transaction();
           let isTx = false;
           const contents = response.data[1].content;
+          console.log(contents);
           for (const content of contents) {
             const action = content.action;
             let buffer = Buffer.alloc(0);
@@ -65,19 +64,19 @@ export class AgentController extends Controller {
             const builtTx = await txb.build({
               client,
             });
-            const dryrunResult = await client.dryRunTransactionBlock({
-              transactionBlock: builtTx,
-            });
-            console.log(dryrunResult);
-            if (dryrunResult.effects.status.status === 'failure') {
-              res[1].text = 'Failed to build & dry execute transaction';
-              while (res.length > 2) {
-                res.pop();
-              }
-            } else {
+            // const dryrunResult = await client.dryRunTransactionBlock({
+            //   transactionBlock: builtTx,
+            // });
+            // console.log(dryrunResult);
+            // if (dryrunResult.effects.status.status === 'failure') {
+            //   res[1].text = 'Failed to build & dry execute transaction';
+            //   while (res.length > 2) {
+            //     res.pop();
+            //   }
+            // } else {
               const buffer = Buffer.from(builtTx);
               res[0].payload = buffer;
-            }
+            // }
           }
         } else if (firstAction === "Suilend_Check") {
           const status = await getLendingStatus(body.from);
@@ -86,6 +85,7 @@ export class AgentController extends Controller {
           const prediction = response.data[1].content;
           res[1].text = `Predicted price:\nNext 1h low: ${prediction.prediction_1h[1]} high: ${prediction.prediction_1h[0]} close price: ${prediction.prediction_1h[2]}\nNext 6h low: ${prediction.prediction_6h[1]} high: ${prediction.prediction_6h[0]} close price: ${prediction.prediction_6h[2]}`;
         }
+        console.log(res);
         return res;
       } else {
         throw new Error("Failed to send message to agent");
