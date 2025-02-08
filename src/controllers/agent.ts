@@ -1,8 +1,12 @@
 import axios from "axios";
 import { Body, Controller, Post, Route, Tags } from "tsoa";
 import { env } from "../config/config";
-import { client, getLendingDepositTransaction, getLendingStatus, getLendingWithdrawTransaction, getSwapTransaction, getTransferTransaction } from "./tx";
+import { getSuilendDepositTransaction, getSuilendStatus, getSuilendWithdrawTransaction } from "../ptb/suilend";
 import { Transaction } from '@mysten/sui/transactions';
+import { getTransferTransaction } from "../ptb/transfer";
+import { getSwapTransaction } from "../ptb/swap";
+import { buildPTBTransaction } from "../ptb/utils";
+import { client } from "../ptb";
 
 @Route("api/agent")
 export class AgentController extends Controller {
@@ -38,14 +42,14 @@ export class AgentController extends Controller {
                   buffer = await getSwapTransaction(body.from, content.fromToken, content.toToken, parseFloat(content.amount), txb, undefined);
                   break;
                 case 'Suilend_Deposit':
-                  buffer = await getLendingDepositTransaction(body.from, content.amount, content.tokenType, txb);
+                  buffer = await getSuilendDepositTransaction(body.from, content.amount, content.tokenType, txb);
                   break;
                 case 'Suilend_Withdraw':
-                  buffer = await getLendingWithdrawTransaction(body.from, content.amount, content.tokenType, txb);
+                  buffer = await getSuilendWithdrawTransaction(body.from, content.amount, content.tokenType, txb);
                   break;
-                case 'Suilend_Borrow':
-                  buffer = await getLendingDepositTransaction(body.from, content.amount, content.tokenType, txb);
-                  break;
+                // case 'Suilend_Borrow':
+                //   buffer = await getSuilendBorrowTransaction(body.from, content.amount, content.tokenType, txb);
+                //   break;
               }
               const uint8Array = new Uint8Array(buffer);
               txb = Transaction.from(uint8Array);
@@ -59,27 +63,23 @@ export class AgentController extends Controller {
             }
           }
           if (isTx) {
-            txb.setSenderIfNotSet(body.from);
-            txb.setGasBudget(100000000);
-            const builtTx = await txb.build({
-              client,
+            const builtTx = await buildPTBTransaction(body.from, txb);
+            const dryrunResult = await client.dryRunTransactionBlock({
+              transactionBlock: builtTx,
             });
-            // const dryrunResult = await client.dryRunTransactionBlock({
-            //   transactionBlock: builtTx,
-            // });
-            // console.log(dryrunResult);
-            // if (dryrunResult.effects.status.status === 'failure') {
-            //   res[1].text = 'Failed to build & dry execute transaction';
-            //   while (res.length > 2) {
-            //     res.pop();
-            //   }
-            // } else {
+            console.log(dryrunResult);
+            if (dryrunResult.effects.status.status === 'failure') {
+              res[1].text = 'Failed to build & dry execute transaction';
+              while (res.length > 2) {
+                res.pop();
+              }
+            } else {
               const buffer = Buffer.from(builtTx);
               res[0].payload = buffer;
-            // }
+            }
           }
         } else if (firstAction === "Suilend_Check") {
-          const status = await getLendingStatus(body.from);
+          const status = await getSuilendStatus(body.from);
           if (status) res.push(status); 
         } else if (firstAction === "PREDICT") {
           const prediction = response.data[1].content;

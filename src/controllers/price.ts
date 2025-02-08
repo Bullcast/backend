@@ -1,8 +1,6 @@
 import axios from "axios";
-import { Body, Controller, Get, Post, Query, Route, Tags } from "tsoa";
+import { Controller, Get, Query, Route, Tags } from "tsoa";
 import { env } from "../config/config";
-import { client, getLendingDepositTransaction, getLendingStatus, getLendingWithdrawTransaction, getSwapTransaction, getTransferTransaction } from "./tx";
-import { Transaction } from '@mysten/sui/transactions';
 
 @Route("api/price")
 export class PriceController extends Controller {

@@ -41,6 +41,7 @@
     "joi": "^17.13.3",
     "morgan": "^1.10.0",
     "mysql2": "^3.11.3",
+    "navi-sdk": "^1.4.27",
     "swagger-ui-express": "^5.0.1",
     "tsoa": "^6.6.0",
     "typeorm": "^0.3.20",
