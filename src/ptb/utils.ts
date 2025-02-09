@@ -28,9 +28,9 @@ export function formatCoinType(coinType: string): string {
   return `${pkg.toLowerCase()}::${module.toLowerCase()}::${struct.toUpperCase()}`;
 }
 
-export const buildPTBTransaction = async (from: string, txb: Transaction): Promise<Buffer> => {
+export const buildPTBTransaction = async (from: string, txb: Transaction, gasConfig?: number): Promise<Buffer> => {
     txb.setSenderIfNotSet(from);
-    txb.setGasBudget(100000000);
+    txb.setGasBudget(gasConfig || 100000000);
     const builtTx = await txb.build({
       client,
     });

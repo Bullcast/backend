@@ -22,7 +22,7 @@ export const getSuilendDepositTransaction = async (from: string, amount: number 
     "0xf95b06141ed4a174f239417323bde3f209b972f5930d8521ea38a52aff3a6ddf::suilend::MAIN_POOL"
   ], client);
 
-    const coin = coinWithBalance({ balance: amount, type })
+  const coin = coinWithBalance({ balance: amount, type })
 
   if (obligationOwnerCaps.length === 0) {
     const obligationOwnerCapId = suilendClient.createObligation(
@@ -31,6 +31,7 @@ export const getSuilendDepositTransaction = async (from: string, amount: number 
     suilendClient.deposit(coin, type, obligationOwnerCapId, txb);
     txb.transferObjects([obligationOwnerCapId], from);
   } else {
+    console.log(obligationOwnerCaps[0].id);
     suilendClient.deposit(coin, type, obligationOwnerCaps[0].id, txb);
   }
 

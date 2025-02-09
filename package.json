@@ -28,6 +28,7 @@
   "description": "",
   "dependencies": {
     "@ai-sdk/openai": "^1.1.9",
+    "@bluefin-exchange/bluefin-v2-client": "^6.1.29",
     "@mysten/sui": "^1.21.1",
     "@mysten/sui.js": "^0.54.1",
     "@suilend/sdk": "^1.1.38",

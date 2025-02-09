@@ -7,6 +7,7 @@ import { getTransferTransaction } from "../ptb/transfer";
 import { getSwapTransaction } from "../ptb/swap";
 import { buildPTBTransaction } from "../ptb/utils";
 import { client } from "../ptb";
+import { getNaviDepositTransaction, getNaviStatus, getNaviWithdrawTransaction } from "../ptb/navi";
 
 @Route("api/agent")
 export class AgentController extends Controller {
@@ -25,11 +26,14 @@ export class AgentController extends Controller {
         });
 
         const firstAction = response.data[0].action;
+        console.log(firstAction);
         if (firstAction === 'DEFI_AUTOMATION') {
-          let txb = new Transaction();
-          let isTx = false;
           const contents = response.data[1].content;
-          console.log(contents);
+          if (!Array.isArray(contents)) {
+            return res;
+          }
+          let txb = new Transaction();
+          let isTx = true;
           for (const content of contents) {
             const action = content.action;
             let buffer = Buffer.alloc(0);
@@ -47,13 +51,17 @@ export class AgentController extends Controller {
                 case 'Suilend_Withdraw':
                   buffer = await getSuilendWithdrawTransaction(body.from, content.amount, content.tokenType, txb);
                   break;
-                // case 'Suilend_Borrow':
-                //   buffer = await getSuilendBorrowTransaction(body.from, content.amount, content.tokenType, txb);
-                //   break;
+                case 'Navi_Deposit':
+                  buffer = await getNaviDepositTransaction(body.from, content.amount, content.tokenType, txb);
+                  break;
+                case 'Navi_Withdraw':
+                  buffer = await getNaviWithdrawTransaction(body.from, content.amount, content.tokenType, txb);
+                  break;
+                default:
+                  isTx: false;
               }
               const uint8Array = new Uint8Array(buffer);
               txb = Transaction.from(uint8Array);
-              isTx = true;
             } catch (error) {
               console.error(error);
               res[1].text = 'Failed to build transaction';
@@ -67,7 +75,7 @@ export class AgentController extends Controller {
             const dryrunResult = await client.dryRunTransactionBlock({
               transactionBlock: builtTx,
             });
-            console.log(dryrunResult);
+            console.log(dryrunResult.effects.status.error);
             if (dryrunResult.effects.status.status === 'failure') {
               res[1].text = 'Failed to build & dry execute transaction';
               while (res.length > 2) {
@@ -84,8 +92,10 @@ export class AgentController extends Controller {
         } else if (firstAction === "PREDICT") {
           const prediction = response.data[1].content;
           res[1].text = `Predicted price:\nNext 1h low: ${prediction.prediction_1h[1]} high: ${prediction.prediction_1h[0]} close price: ${prediction.prediction_1h[2]}\nNext 6h low: ${prediction.prediction_6h[1]} high: ${prediction.prediction_6h[0]} close price: ${prediction.prediction_6h[2]}`;
+        } else if (firstAction === "Navi_Check") {
+          const status = await getNaviStatus(body.from);
+          if (status) res.push(status);
         }
-        console.log(res);
         return res;
       } else {
         throw new Error("Failed to send message to agent");
