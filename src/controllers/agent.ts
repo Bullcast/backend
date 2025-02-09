@@ -91,7 +91,17 @@ export class AgentController extends Controller {
           if (status) res.push(status); 
         } else if (firstAction === "PREDICT") {
           const prediction = response.data[1].content;
-          res[1].text = `Predicted price:\nNext 1h low: ${prediction.prediction_1h[1]} high: ${prediction.prediction_1h[0]} close price: ${prediction.prediction_1h[2]}\nNext 6h low: ${prediction.prediction_6h[1]} high: ${prediction.prediction_6h[0]} close price: ${prediction.prediction_6h[2]}`;
+          res[1].text = `
+          **Predicted price:**
+          - Next 1h: 
+            - Low: ${prediction.prediction_1h[1]} 
+            - High: ${prediction.prediction_1h[0]} 
+            - Close: ${prediction.prediction_1h[2]}
+          - Next 6h:
+            - Low: ${prediction.prediction_6h[1]}
+            - High: ${prediction.prediction_6h[0]} 
+            - Close price: ${prediction.prediction_6h[2]}          
+          `;
         } else if (firstAction === "Navi_Check") {
           const status = await getNaviStatus(body.from);
           if (status) res.push(status);
