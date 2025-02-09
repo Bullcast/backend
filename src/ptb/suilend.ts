@@ -1,7 +1,8 @@
 import { initializeSuilend, LENDING_MARKET_ID, SuilendClient } from "@suilend/sdk";
 import { client } from "./index";
 import { coinWithBalance, Transaction } from "@mysten/sui/transactions";
-import { buildPTBTransaction, formatCoinType } from "./utils";
+import { buildPTBTransaction } from "../utils/utils";
+import { formatCoinType } from "../utils/format";
 
 export const getSuilendDepositTransaction = async (from: string, amount: number | string, type: string, txb?: Transaction): Promise<Buffer> => {
   const suilendClient = await SuilendClient.initialize(LENDING_MARKET_ID, "0xf95b06141ed4a174f239417323bde3f209b972f5930d8521ea38a52aff3a6ddf::suilend::MAIN_POOL", client);

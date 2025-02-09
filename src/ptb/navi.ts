@@ -1,8 +1,9 @@
 import { coinWithBalance, Transaction } from "@mysten/sui/transactions";
 import { NAVISDKClient, depositCoin, pool, withdrawCoin } from "navi-sdk";
 import { client } from ".";
-import { buildPTBTransaction, formatCoinType } from "./utils";
+import { buildPTBTransaction } from "../utils/utils";
 import { Pool, PoolConfig } from "navi-sdk/dist/types";
+import { formatCoinType } from "../utils/format";
 
 export const getNaviDepositTransaction = async (from: string, amount: number | string, type: string, txb?: Transaction): Promise<Buffer> => {
     if (typeof amount === "string") {

@@ -1,7 +1,8 @@
 import { Transaction } from "@mysten/sui/transactions";
-import { buildPTBTransaction, formatCoinType } from "./utils";
+import { buildPTBTransaction } from "../utils/utils";
 import { client } from "./index";
 import { Aftermath } from "aftermath-ts-sdk";
+import { formatCoinType } from "../utils/format";
 
 const afSdk = new Aftermath("MAINNET"); // "MAINNET" | "TESTNET"
 

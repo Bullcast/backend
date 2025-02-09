@@ -1,6 +1,7 @@
 import { coinWithBalance, Transaction } from "@mysten/sui/transactions";
-import { buildPTBTransaction, formatCoinType } from "./utils";
+import { buildPTBTransaction } from "../utils/utils";
 import { client } from ".";
+import { formatCoinType } from "../utils/format";
 
 export const getTransferTransaction = async (from: string, to: string, amount: number | string, txb?: Transaction, type?: string): Promise<Buffer> => {
   if (typeof amount === "string") {

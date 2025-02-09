@@ -1,6 +1,3 @@
-import { Transaction } from "@mysten/sui/transactions";
-import { client } from "./index";
-
 export function formatCoinType(coinType: string): string {
   const parts = coinType.split("::");
   if (parts.length !== 3) {
@@ -28,12 +25,6 @@ export function formatCoinType(coinType: string): string {
   return `${pkg.toLowerCase()}::${module.toLowerCase()}::${struct.toUpperCase()}`;
 }
 
-export const buildPTBTransaction = async (from: string, txb: Transaction, gasConfig?: number): Promise<Buffer> => {
-    txb.setSenderIfNotSet(from);
-    txb.setGasBudget(gasConfig || 100000000);
-    const builtTx = await txb.build({
-      client,
-    });
-    const buffer = Buffer.from(builtTx);
-    return buffer;
+export function formatMDString(md: string): string {
+  return md.replace(/`/g, "\\`");
 }
