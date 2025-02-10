@@ -1,38 +1,40 @@
-# Bullcast Backend Repository
+---
+description: 'Bullcast: AI-driven bullish price prediction for next-gen DeFAI automation. 🚀'
+---
 
-## Features
+# 👋 Welcome to Bullcast
 
-- **API Key Management**  
-  Securely store and manage API keys for prediction service.
+## Overview
 
-- **Prediction & Analyst Agent Forwarding**  
-  Forward incoming data to prediction and analyst agents for processing and insights.
+Bullcast is an AI-powered DeFi assistant that helps users automate and optimize their trading and investment strategies. **Its core strength lies in its AI-driven price prediction model, which enables smarter investment decisions.** By leveraging this AI technology, Bullcast simplifies DeFi interactions and lowers the barrier to entry for users.
 
-- **Sui-Integrated Agent Forwarding**  
-  Forward requests to the Sui-integrated agent for blockchain interactions.
+<figure><img src="https://github.com/Bullcast/docs/blob/main/.gitbook/assets/image%20(3).png" alt=""><figcaption><p>Our prediction model outperform</p></figcaption></figure>
 
-- **OHLCV Data Fetching**  
-  Automated jobs to retrieve Open-High-Low-Close-Volume data for financial analysis.
+<figure><img src="https://github.com/Bullcast/docs/blob/main/.gitbook/assets/image%20(5).png" alt=""><figcaption></figcaption></figure>
 
-- **Investment Trigger**  
-  Automated jobs that initiate investment actions based on predefined conditions and strategies.
+<figure><img src="https://github.com/Bullcast/docs/blob/main/.gitbook/assets/image%20(6).png" alt=""><figcaption></figcaption></figure>
 
-## How to Run
+With Bullcast, users can forecast price movements, automate token swaps, provide liquidity, and engage in yield farming. The AI model processes real-time market data, offering actionable insights and automation capabilities on the **$SUI** blockchain. Developers can also integrate Bullcast’s API to access its prediction engine and DeFi automation tools.
 
-1. **Start MySQL and Install Dependencies**  
-   ```bash
-   docker-compose -f docker-compose.yml up -d
-   npm install
-   ```
+<figure><img src="https://github.com/Bullcast/docs/blob/main/.gitbook/assets/image%20(1).png" alt=""><figcaption></figcaption></figure>
 
-2. **Development Mode**  
-   ```bash
-   npm run dev
-   ```
-   This command starts the server in development mode with automatic restarts on file changes.
+### Features
 
-3. **Build and Run in Production Mode**  
-   ```bash
-   npm run build:start
-   ```
-   This command compiles the project and then runs the production build.
+* DeFAI:
+  * ✅ **Batching Multiple Transactions**: Users can execute multiple DeFi actions in a single transaction. For example, swap tokens and then deposit them into a lending protocol within the same batch, reducing gas costs and improving efficiency.
+  * ✅**Token Transfers**
+  * ✅ **Swaps**
+  * ✅ **API for Prediction**
+  * ✅ **Feeds Price Data from Pyth Network Oracle**
+  * ✅**Yield Farming (Lending & Borrowing)**
+  * 🚀**Providing Liquidity (Proof of Concept)**
+  * 🚀**Auto-Investment with Forecast model & Orcale like Pyth Network (Proof of Concept)**
+* 🚀 **Prediction Challenges & Incentive Mechanism**: Users can participate in daily, weekly, and monthly prediction challenges. If their price predictions are more accurate than the AI model, they earn tokens as rewards. Otherwise, token will be burnt from Treasury. This creates an incentive-based "**Predict-to-Earn**" mechanism **(Proof of Concept)**.
+
+### Blockchain Support
+
+* **Primary Focus**: $SUI Blockchain
+  * Chosen for its efficiency and suitability for AI-driven DeFi applications.
+* Will integrate EVM chains as Base, Ethereum.
+
+<figure><img src="https://github.com/Bullcast/docs/blob/main/.gitbook/assets/image%20(2).png" alt="" width="319"><figcaption></figcaption></figure>

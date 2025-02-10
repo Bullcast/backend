@@ -17,7 +17,6 @@ export class AgentController extends Controller {
   public async handleMessage(
     @Body() body: any,
   ) {
-    console.log(body);
     try {
       const response = await axios.post(env.agent.agentApiUrl, body);
       if (response.status === 200) {
@@ -76,7 +75,6 @@ export class AgentController extends Controller {
             const dryrunResult = await client.dryRunTransactionBlock({
               transactionBlock: builtTx,
             });
-            console.log(dryrunResult.effects.status.error);
             if (dryrunResult.effects.status.status === 'failure') {
               res[1].text = 'Failed to build & dry execute transaction';
               while (res.length > 2) {

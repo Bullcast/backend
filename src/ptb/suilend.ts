@@ -32,7 +32,6 @@ export const getSuilendDepositTransaction = async (from: string, amount: number 
     suilendClient.deposit(coin, type, obligationOwnerCapId, txb);
     txb.transferObjects([obligationOwnerCapId], from);
   } else {
-    console.log(obligationOwnerCaps[0].id);
     suilendClient.deposit(coin, type, obligationOwnerCaps[0].id, txb);
   }
 
